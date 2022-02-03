@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useCallback } from "react";
+import React, { useMemo, useCallback } from "react";
 import { StyleSheet, Image, View } from "react-native";
 import Config from "react-native-config";
 import { Trans } from "react-i18next";
@@ -19,17 +19,20 @@ import Touchable from "../../../components/Touchable";
 import { ScreenName } from "../../../const";
 import AnimatedHeaderView from "../../../components/AnimatedHeader";
 
-const deviceIds = {
-  nanoS: { dark: nanoSLight, light: nanoSDark },
-  ...(Config.SHOW_NANOSP
-    ? { nanoSP: { dark: nanoSPLight, light: nanoSPDark } }
-    : {}),
-  nanoX: { dark: nanoXLight, light: nanoXDark },
-};
-
 function OnboardingStepDeviceSelection({ navigation }: *) {
   const { dark, colors } = useTheme();
   const theme = dark ? "dark" : "light";
+
+  const deviceIds = useMemo(
+    () => ({
+      nanoS: { dark: nanoSLight, light: nanoSDark },
+      ...(Config.SHOW_NANOSP
+        ? { nanoSP: { dark: nanoSPLight, light: nanoSPDark } }
+        : {}),
+      nanoX: { dark: nanoXLight, light: nanoXDark },
+    }),
+    [],
+  );
 
   const next = useCallback(
     (deviceModelId: string) => {
@@ -44,7 +47,7 @@ function OnboardingStepDeviceSelection({ navigation }: *) {
       title={<Trans i18nKey="onboarding.stepSelectDevice.title" />}
     >
       <TrackScreen category="Onboarding" name="SelectDevice" />
-      {Object.keys(deviceIds).map((deviceId, index) => (
+      {Object.keys(deviceIds).map((deviceId: any, index) => (
         <Touchable
           key={deviceId + index}
           event="Onboarding Device - Selection"

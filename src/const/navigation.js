@@ -42,6 +42,7 @@ export const ScreenName = {
   DebugPlayground: "DebugPlayground",
   DebugSettings: "DebugSettings",
   DebugStore: "DebugStore",
+  DebugEnv: "DebugEnv",
   DelegationConnectDevice: "DelegationConnectDevice",
   DelegationSelectDevice: "DelegationSelectDevice",
   DelegationSelectValidator: "DelegationSelectValidator",
