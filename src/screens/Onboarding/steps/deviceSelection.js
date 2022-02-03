@@ -2,22 +2,35 @@
 
 import React, { useCallback } from "react";
 import { StyleSheet, Image, View } from "react-native";
+import Config from "react-native-config";
 import { Trans } from "react-i18next";
 import { useTheme } from "@react-navigation/native";
 import { TrackScreen } from "../../../analytics";
 import LText from "../../../components/LText";
-import nanoS from "../assets/nanoS.png";
-import nanoX from "../assets/nanoX.png";
-import blue from "../assets/blue.png";
+
+import nanoSLight from "../assets/nanoS/selector/light.png";
+import nanoSPLight from "../assets/nanoSP/selector/light.png";
+import nanoXLight from "../assets/nanoX/selector/light.png";
+import nanoSDark from "../assets/nanoS/selector/dark.png";
+import nanoSPDark from "../assets/nanoSP/selector/dark.png";
+import nanoXDark from "../assets/nanoX/selector/dark.png";
 
 import Touchable from "../../../components/Touchable";
 import { ScreenName } from "../../../const";
 import AnimatedHeaderView from "../../../components/AnimatedHeader";
 
-const deviceIds = { nanoS, nanoX, blue };
+const deviceIds = {
+  nanoS: { dark: nanoSLight, light: nanoSDark },
+  ...(Config.SHOW_NANOSP
+    ? { nanoSP: { dark: nanoSPLight, light: nanoSPDark } }
+    : {}),
+  nanoX: { dark: nanoXLight, light: nanoXDark },
+};
 
 function OnboardingStepDeviceSelection({ navigation }: *) {
-  const { colors } = useTheme();
+  const { dark, colors } = useTheme();
+  const theme = dark ? "dark" : "light";
+
   const next = useCallback(
     (deviceModelId: string) => {
       navigation.navigate(ScreenName.OnboardingUseCase, { deviceModelId });
@@ -48,7 +61,7 @@ function OnboardingStepDeviceSelection({ navigation }: *) {
               <Image
                 style={styles.bgImage}
                 resizeMode="contain"
-                source={deviceIds[deviceId]}
+                source={deviceIds[deviceId][theme]}
               />
             ) : null}
           </View>
