@@ -55,7 +55,7 @@ import NanoDeviceCheckIcon from "../../../icons/NanoDeviceCheckIcon";
 
 import { urls } from "../../../config/urls";
 
-const lottieAnimations = {
+export const lottieAnimations = {
   nanoS: {
     pinCode: pinCodeNanoS,
     recover: recoverNanoS,
