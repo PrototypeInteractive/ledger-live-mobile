@@ -54,7 +54,7 @@ function OnboardingStepDeviceSelection({ navigation }: *) {
           eventProperties={{ deviceId }}
           testID={`Onboarding Device - Selection|${deviceId}`}
           style={[styles.deviceButton, { backgroundColor: colors.lightLive }]}
-          onPress={() => next("nanoSP")}
+          onPress={() => next(deviceId)}
         >
           <LText semiBold style={styles.label}>
             <Trans i18nKey={`onboarding.stepSelectDevice.${deviceId}`} />
